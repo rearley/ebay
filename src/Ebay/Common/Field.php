@@ -19,22 +19,59 @@
 
 namespace Ebay\Common;
 
+/**
+ * Field Object
+ * @package Ebay
+ * @author Rick Earley <rick@earleyholdings.com>
+ * @copyright (c) 2014
+ * @version 1.0
+ */
 class Field {
 
+    /**
+     * Field Name
+     * @var string
+     */
     private $name;
+    
+    /**
+     * Field attributes
+     * @var array
+     */
     private $attributes;
+    
+    /**
+     * Field Value
+     * @var mixed Could be other field objects
+     */
     private $values;
 
+    /**
+     * Create Field Object
+     * @param string $name
+     * @param mixed $values
+     */
     function __construct($name = null, $values = null) {
         $this->name = $name;
         $this->values = $values;
     }
 
+    /**
+     * Set the field name
+     * @param string $name
+     * @return \Ebay\Common\Field
+     */
     public function setName($name) {
         $this->name = $name;
         return $this;
     }
     
+    /**
+     * Set the field attribute
+     * @param string $name
+     * @param string $value
+     * @return \Ebay\Common\Field
+     */
     public function setAttribute($name,$value) {        
         $this->attributes[] = array(
             'name' => $name,
@@ -43,19 +80,36 @@ class Field {
         return $this;
     }
 
+    /**
+     * Set the field value
+     * @param mixed $values
+     * @return \Ebay\Common\Field
+     */
     public function setValue($values) {
         $this->values[] = $values;
         return $this;
     }
     
+    /**
+     * Get the field name
+     * @return string
+     */
     public function getName() {
         return $this->name;
     }
 
+    /**
+     * Get the field attributes
+     * @return array
+     */
     public function getAttributes() {
         return $this->attributes;
     }
 
+    /**
+     * Get the field values
+     * @return mixed
+     */
     public function getValues() {
         return $this->values;
     }
