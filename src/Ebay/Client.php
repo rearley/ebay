@@ -19,9 +19,25 @@
 
 namespace Ebay;
 
+/**
+ * Client Object for Ebay API Library
+ * @package Ebay 
+ * @author Rick Earley <rick@earleyholdings.com>
+ * @copyright (c) 2014
+ * @version 1.0
+ */
 class Client {
 
+    /**
+     * Ebay AppID
+     * @var string
+     */
     private $applicationId;
+    
+    /**
+     * Client Library debug Mode
+     * @var boolean 
+     */
     private $debugMode = false;
 
     /**
@@ -44,6 +60,7 @@ class Client {
     public static function writeDebug($from, $message, $extra = array()) {
 
         if ($this->debugMode) {
+            
             // Check for exisiting log file
             if (!file_exists(__DIR__ . '/Logs/debug.log')) {
                 mkdir(__DIR__ . '/Logs', 0777);
