@@ -18,9 +18,25 @@
  */
 namespace Ebay\Service;
 
+/**
+ * Base Service Class
+ * @package Ebay
+ * @author Rick Earley <rick@earleyholdings.com>
+ * @copyright (c) 2014
+ * @version 1.0
+ */
 class Base {
     
+    /**
+     * Ebay HEaders
+     * @var array
+     */
     protected $headers;
+    
+    /**
+     * Debug Mode
+     * @var boolean
+     */
     protected $debugMode;
 
     /**
