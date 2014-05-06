@@ -28,66 +28,80 @@ namespace Ebay\Common;
  */
 class Request {
 
+    /**
+     * Request Fields
+     * @var array
+     */
     private $fields;
+    
+    /**
+     * Ebay Call Name
+     * @var string
+     */
     private $callName;
-    private $requestType = 'XML';
-    private $responseType = 'XML';
+    
+    /**
+     * Ebay Endpoint
+     * @var string
+     */
     private $endpoint;
+    
+    /**
+     * Call XML Header
+     * @var string
+     */
     private $callHeader;
+    
+    /**
+     * Call XML Footer
+     * @var string
+     */
     private $callFooter;
 
+    /**
+     * Request Object
+     * @param string $callName
+     */
     function __construct($callName) {
         $this->callName = $callName;
     }
 
-    public function getEndpoint() {
-        return $this->endpoint;
-    }
-
+    /**
+     * Set Ebay Endpoint
+     * @param string $endpoint
+     */
     public function setEndpoint($endpoint) {
         $this->endpoint = $endpoint;
     }
 
-    public function setRequestType($type) {
-        $this->requestType = $type;
-    }
-
-    public function getRequestType() {
-        return $this->requestType;
-    }
-
-    public function setResponseType($type) {
-        $this->responseType = $type;
-    }
-
-    public function getResponseType() {
-        return $this->responseType;
-    }
-
-    public function getCallName() {
-        return $this->callName;
-    }
-
-    public function getCallHeader() {
-        return $this->callHeader;
-    }
-
-    public function getCallFooter() {
-        return $this->callFooter;
-    }
-
+    /**
+     * Set call header XML
+     * @param string $callHeader
+     */
     public function setCallHeader($callHeader) {
         $this->callHeader = $callHeader;
     }
 
+    /**
+     * Set call footer XML
+     * @param string $callFooter
+     */
     public function setCallFooter($callFooter) {
         $this->callFooter = $callFooter;
     }
 
+    /**
+     * Add request field
+     * @param \Ebay\Common\Field $field
+     */
     public function addField($field) {
         $this->fields[] = $field;
     }
 
+    /**
+     * Build the XML Request
+     * @return string
+     */
     public function buildRequest() {
 
         $xmlString = '<?xml version="1.0" encoding="utf-8"?>';
@@ -98,6 +112,10 @@ class Request {
         return $xmlString;
     }
 
+    /**
+     * Build the XML Body for Request
+     * @return string
+     */
     private function buildXmlBody() {
         $xml = '';
 
@@ -110,6 +128,11 @@ class Request {
         return $xml;
     }
 
+    /**
+     * Add fields to XML Request
+     * @param \Ebay\Common\Field $data
+     * @return string
+     */
     private function buildInputField($data) {
 
         // Name
