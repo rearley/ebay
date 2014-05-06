@@ -50,7 +50,7 @@ class Base {
     /**
      * Make API Request
      * @param \Ebay\Common\Request $request
-     * @return mixed
+     * @return \Ebay\Common\Response
      * @throws \Ebay\Exception\Curl
      */
     protected function makeRequest(\Ebay\Common\Request $request){
@@ -74,11 +74,12 @@ class Base {
         $error = $curl->getError();
         if($error['number'] > 0){
             throw new \Ebay\Exception\Curl($error['message'],$error['number']);
-        }    
+        }
         
-        // TODO: Handle Response and Errors
+        // Return Reponse Object
+        $response = new \Ebay\Common\Response($curl->getResponse(),$curl->getInformation());
         
-        return $curl->getResponse();
+        return $response;
     }
     
     /**
