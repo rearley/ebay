@@ -57,6 +57,9 @@ class Request {
      * @var string
      */
     private $callFooter;
+    
+    private $requestType = 'XML';
+    private $responseType = 'XML';
 
     /**
      * Request Object
@@ -78,6 +81,14 @@ class Request {
         }
         
         $this->endpoint = $endpoint;
+    }
+    
+    /**
+     * Get the Ebay REST API Endpoint
+     * @return string
+     */
+    public function getEndpoint() {
+        return $this->endpoint;
     }
     
     /**
@@ -105,6 +116,57 @@ class Request {
         }
         
         $this->callFooter = $callFooter;
+    }
+    
+    /**
+     * Set the Request Type. (xml,json)
+     * @param string $type
+     * @throws \InvalidArgumentException
+     */
+    public function setRequestType($type) {
+        
+        if(empty($type)){
+            throw new \InvalidArgumentException("Type must be a vaild string.");
+        }
+        $this->requestType = $type;
+    }
+
+    /**
+     * Get the Request Type
+     * @return string
+     */
+    public function getRequestType() {
+        return $this->requestType;
+    }
+
+    /**
+     * Set the Response Type
+     * @param string $type
+     * @throws \InvalidArgumentException
+     */
+    public function setResponseType($type) {
+        
+        if(empty($type)){
+            throw new \InvalidArgumentException("Type must be a vaild string.");
+        }
+        
+        $this->responseType = $type;
+    }
+
+    /**
+     * Get the response type.
+     * @return string
+     */
+    public function getResponseType() {
+        return $this->responseType;
+    }
+
+    /**
+     * Get the Ebay call name
+     * @return string
+     */
+    public function getCallName() {
+        return $this->callName;
     }
 
     /**
