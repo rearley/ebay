@@ -66,19 +66,31 @@ class Request {
         $this->callName = $callName;
     }
 
-    /**
-     * Set Ebay Endpoint
-     * @param string $endpoint
-     */
+   /**
+    * Set the Ebay REST API Endpoint
+    * @param string $endpoint
+    * @throws \InvalidArgumentException
+    */
     public function setEndpoint($endpoint) {
+        
+        if(empty($endpoint)){
+            throw new \InvalidArgumentException("Endpoint must be a vaild Ebay API URL.");
+        }
+        
         $this->endpoint = $endpoint;
     }
-
+    
     /**
      * Set call header XML
-     * @param string $callHeader
+     * @param type $callHeader
+     * @throws \InvalidArgumentException
      */
     public function setCallHeader($callHeader) {
+        
+        if(empty($callHeader)){
+            throw new \InvalidArgumentException("Call XMl Header cannot be empty.");
+        }
+        
         $this->callHeader = $callHeader;
     }
 
@@ -87,6 +99,11 @@ class Request {
      * @param string $callFooter
      */
     public function setCallFooter($callFooter) {
+        
+        if(empty($callFooter)){
+            throw new \InvalidArgumentException("Call XML Footer cannot be empty.");
+        }
+        
         $this->callFooter = $callFooter;
     }
 
@@ -95,6 +112,11 @@ class Request {
      * @param \Ebay\Common\Field $field
      */
     public function addField($field) {
+        
+        if(!$field instanceof \Ebay\Common\Field){
+            throw new \InvalidArgumentException("The field must be an instance of \Ebay\Common\Field");
+        }            
+        
         $this->fields[] = $field;
     }
 
@@ -134,6 +156,10 @@ class Request {
      * @return string
      */
     private function buildInputField($data) {
+        
+        if(!$data instanceof \Ebay\Common\Field){
+            throw new \InvalidArgumentException("The field must be an instance of \Ebay\Common\Field");
+        }
 
         // Name
         $name = $data->getName();
