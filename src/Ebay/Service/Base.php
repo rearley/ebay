@@ -77,7 +77,10 @@ class Base {
         }
         
         // Return Reponse Object
-        $response = new \Ebay\Common\Response($curl->getResponse(),$curl->getInformation());
+        $response = new \Ebay\Common\Response();
+        
+        $response->setResponseBody($curl->getResponse())
+                ->setCurlInformation($curl->getInformation());
         
         return $response;
     }
