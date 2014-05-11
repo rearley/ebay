@@ -19,11 +19,87 @@
 
 namespace Ebay\Common;
 
+/**
+ * Response Objetc
+ * @package Ebay
+ * @author Rick Earley <rick@earleyholdings.com>
+ * @copyright (c) 2014
+ * @version 1.0
+ */
 class Response {
+    
+    /**
+     * cURL Response Body
+     * @var string
+     */
+    private $responseBody;
+    
+    /**
+     * cURL Information
+     * @var array
+     */
+    private $curlInformation;
 
+    /**
+     * Response Object
+     */
     function __construct() {
-        
     }
-
+    
+    /**
+     * Set the response body
+     * @param string $body
+     * @return \Ebay\Common\Response
+     */
+    public function setResponseBody($body){
+        
+        $this->responseBody = $body;
+        
+        return $this;
+    }
+    
+    /**
+     * Set cURL Information
+     * @param array $information
+     * @return \Ebay\Common\Response
+     * @throws \InvalidArgumentException
+     */
+    public function setCurlInformation($information){
+        
+        if(empty($information) && !is_array($information)){
+            throw new \InvalidArgumentException("cURL Information cannot be empty and must be an array.");
+        }
+        
+        $this->curlInformation = $information;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the response body
+     * @param string $returnObject Reponse type XML,JSON,OBJECT
+     * @return mixed
+     */
+    public function getResponseBody($returnObject = 'XML'){
+        $returnObject = strtoupper($returnObject);
+        
+        switch($returnObject){
+            case 'XML':
+                return $this->responseBody;
+            case 'JSON':
+                break;
+            case 'OBJECT':
+                break;
+            default;
+                return $this->responseBody;
+        }        
+    }
+    
+    /**
+     * Get the cURL information
+     * @return array
+     */
+    public function getCurlInformation(){
+        return $this->responseInformation;
+    }
 }
-
