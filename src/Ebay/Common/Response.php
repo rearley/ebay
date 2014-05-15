@@ -78,17 +78,20 @@ class Response {
     /**
      * Get the response body
      * @param string $returnObject Reponse type XML,JSON,OBJECT
-     * @return mixed
+     * @return mixed (XML,JSON,OBJECT) Default is XML
      */
     public function getResponseBody($returnObject = 'XML'){
+        
         $returnObject = strtoupper($returnObject);
         
         switch($returnObject){
             case 'XML':
                 return $this->responseBody;
             case 'JSON':
+                return json_encode(simplexml_load_string($this->responseBody));
                 break;
             case 'OBJECT':
+                return simplexml_load_string($this->responseBody);
                 break;
             default;
                 return $this->responseBody;
