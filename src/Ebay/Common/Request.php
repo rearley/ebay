@@ -181,6 +181,22 @@ class Request {
         
         $this->fields[] = $field;
     }
+    
+    /**
+     * Add request fields
+     * @param array $fields Array of \Ebay\Common\Field objects
+     * @throws \InvalidArgumentException
+     */
+    public function addFields($fields){
+        
+        if(!is_array($fields)){
+            throw new \InvalidArgumentException("Input must be an array of \Ebay\Common\Field Objects.");
+        }
+        
+        foreach($fields as $field){
+            $this->addField($field);
+        }
+    }
 
     /**
      * Build the XML Request
