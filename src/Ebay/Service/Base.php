@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2014 rick
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace Ebay\Service;
 
 /**
@@ -26,34 +27,108 @@ namespace Ebay\Service;
  * @version 1.0
  */
 class Base {
-    
+
     /**
      * Ebay HEaders
      * @var array
      */
     protected $headers;
-    
+
     /**
      * Debug Mode
      * @var boolean
      */
-    protected $debugMode;
+    protected $debugMode = false;
+    
+    /**
+     * Ebay DevID
+     * @var string
+     */
+    protected $devId;
+    
+    /**
+     * Ebay AppID
+     * @var string
+     */
+    protected $appId;
+    
+    /**
+     * Ebay CertID
+     * @var string
+     */
+    protected $certId;
+    
+    /**
+     * Ebay User Token
+     * @var string
+     */
+    protected $userToken;
 
     /**
      * Base Service Object
      * @param boolean $debugMode Set debug mode
      */
-    function __construct($debugMode = false) {
-        $this->debugMode = $debugMode;
+    function __construct() {
+        
+    }
+
+    /**
+     * Set the DevID provided by Ebay
+     * @param string $devId
+     * @return \Ebay\Service\Base
+     */
+    public function setDevId($devId) {
+        $this->devId = $devId;
+        return $this;
+    }
+
+    /**
+     * Set the AppID provided by Ebay
+     * @param string $appId
+     * @return \Ebay\Service\Base
+     */
+    public function setAppId($appId) {
+        $this->appId = $appId;
+        return $this;
+    }
+
+    /**
+     * Set the certID provided by Ebay
+     * @param string $certId
+     * @return \Ebay\Service\Base
+     */
+    public function setCertId($certId) {
+        $this->certId = $certId;
+        return $this;
     }
     
+    /**
+     * Set User Token
+     * @param string $userToken
+     * @return \Ebay\Service\Base
+     */
+    public function setUserToken($userToken){
+        $this->userToken = $userToken;
+        return $this;
+    }
+    
+    /**
+     * Set the Library debug mode
+     * @param boolean $debugMode
+     * @return \Ebay\Service\Base
+     */
+    public function setDebugMode($debugMode){
+        $this->debugMode = $debugMode;
+        return $this;
+    }
+
     /**
      * Make API Request
      * @param \Ebay\Common\Request $request
      * @return \Ebay\Common\Response
      * @throws \Ebay\Exception\Curl
      */
-    protected function makeRequest(\Ebay\Common\Request $request){
+    protected function makeRequest(\Ebay\Common\Request $request) {
 
         // cURL Options
         $options = array(
@@ -63,28 +138,28 @@ class Base {
             CURLOPT_RETURNTRANSFER => true,
             CURLINFO_HEADER_OUT => true,
             CURLOPT_URL => $request->getEndpoint()
-        );        
-        
+        );
+
         // Transport Object
         $curl = new \Ebay\Common\Curl();
         $curl->setOptionArray($options);
         $curl->send();
-        
+
         // Handle cURL Errors
         $error = $curl->getError();
-        if($error['number'] > 0){
-            throw new \Ebay\Exception\Curl($error['message'],$error['number']);
+        if ($error['number'] > 0) {
+            throw new \Ebay\Exception\Curl($error['message'], $error['number']);
         }
-        
+
         // Return Reponse Object
         $response = new \Ebay\Common\Response();
-        
+
         $response->setResponseBody($curl->getResponse())
                 ->setCurlInformation($curl->getInformation());
-        
+
         return $response;
     }
-    
+
     /**
      * Set Ebay API Header
      * @param string $name
@@ -92,14 +167,15 @@ class Base {
      * @return \Ebay\Common\Request
      * @throws \InvalidArgumentException
      */
-    protected function setHeader($name,$value){
-        
-        if(empty($value)){
+    protected function setHeader($name, $value) {
+
+        if (empty($value)) {
             throw new \InvalidArgumentException('Header values cannot be empty.');
         }
-        
+
         $this->headers[] = "{$name}:{$value}";
-        
+
         return $this;
     }
+
 }
