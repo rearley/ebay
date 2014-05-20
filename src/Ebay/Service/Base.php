@@ -63,6 +63,18 @@ class Base {
      * @var string
      */
     protected $userToken;
+    
+    /**
+     * Call Version
+     * @var string
+     */
+    protected $callVersion;
+    
+    /**
+     * Ebay Site ID
+     * @var string
+     */
+    protected $siteId;
 
     /**
      * Base Service Object
@@ -121,6 +133,26 @@ class Base {
         $this->debugMode = $debugMode;
         return $this;
     }
+    
+    /**
+     * Set call version
+     * @param string $callVersion
+     * @return \Ebay\Service\Base
+     */
+    public function setCallVersion($callVersion){
+        $this->callVersion = $callVersion;
+        return $this;
+    }
+    
+    /**
+     * Set the Site ID for the Request
+     * @param string $siteId
+     * @return \Ebay\Service\Base
+     */
+    public function setSiteId($siteId){
+        $this->siteId = $siteId;
+        return $this;
+    }
 
     /**
      * Make API Request
@@ -169,8 +201,8 @@ class Base {
      */
     protected function setHeader($name, $value) {
 
-        if (empty($value)) {
-            throw new \InvalidArgumentException('Header values cannot be empty.');
+        if (empty($value) && $value !== 0 && $value !== '0') {
+            throw new \InvalidArgumentException("Header values cannot be empty.");
         }
 
         $this->headers[] = "{$name}:{$value}";
