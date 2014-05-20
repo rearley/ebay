@@ -103,6 +103,6 @@ class Response {
      * @return array
      */
     public function getCurlInformation(){
-        return $this->responseInformation;
+        return $this->curlInformation;
     }
 }
