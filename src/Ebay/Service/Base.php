@@ -201,10 +201,6 @@ class Base {
      */
     protected function setHeader($name, $value) {
 
-        if (empty($value) && $value !== 0 && $value !== '0') {
-            throw new \InvalidArgumentException("Header values cannot be empty.");
-        }
-
         $this->headers[] = "{$name}:{$value}";
 
         return $this;

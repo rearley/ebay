@@ -20,21 +20,21 @@
 namespace Ebay\Service;
 
 /**
- * Shopping Service Object
+ * Trading Service Object
  * @package Ebay
  * @author Rick Earley <rick.earleyholdings.com>
  * @copyright (c) 2014
  * @version 1.0
  */
-class Shopping extends \Ebay\Service\Base {
+class Trading extends \Ebay\Service\Base {
 
     /**
      * Different Endpoints for the Finding Service
      * @var array
      */
     private $endpoints = array(
-        'production' => 'http://open.api.ebay.com/shopping?',
-        'sandbox' => 'http://open.api.sandbox.ebay.com/shopping?'
+        'production' => 'https://api.ebay.com/ws/api.dll',
+        'sandbox' => 'https://api.sandbox.ebay.com/ws/api.dll'
     );
 
     /**
@@ -52,34 +52,36 @@ class Shopping extends \Ebay\Service\Base {
     private function setupHeaders($request){
         
         // API Level
-        $this->setHeader('X-EBAY-API-VERSION',$this->callVersion);
+        $this->setHeader('X-EBAY-API-COMPATIBILITY-LEVEL',$this->callVersion);
         
         // Site ID
-        $this->setHeader('X-EBAY-API-SITE-ID',$this->siteId);
+        $this->setHeader('X-EBAY-API-SITEID',$this->siteId);
         
         // AppId
-        $this->setHeader('X-EBAY-API-APP-ID',$this->appId);
+        $this->setHeader('X-EBAY-API-APP-NAME',$this->appId);
+        
+        // DevId
+        $this->setHeader('X-EBAY-API-DEV-NAME',$this->devId);
+        
+        // CertId
+        $this->setHeader('X-EBAY-API-CERT-NAME',$this->certId);
         
         // Content Type
-        $this->setHeader("Content-Type", "text/xml;charset=UTF-8");
-        
-        // Request Encoding
-        $this->setHeader("X-EBAY-API-REQUEST-ENCODING", $request->getRequestType());
-        
-        // Response Encoding
-        $this->setHeader("X-EBAY-API-RESPONSE-ENCODING", $request->getResponseType());
+        $this->setHeader("Content-Type", "text/xml");        
         
         // Call Name
         $this->setHeader("X-EBAY-API-CALL-NAME", $request->getCallName());
+        
+        $this->setHeader("Expect", "");
     }
 
     /**
      * Make a request to the service
      * @param \Ebay\Common\Request $request
      */
-    public function makeRequest(\Ebay\Common\Request $request) {
-
-        // Set Headers
+    public function makeRequest(\Ebay\Common\Request $request, $requireCredntials = true) {
+        
+        // Trading Call Headers
         $this->setupHeaders($request);
         
         // Set Endpoint
@@ -92,9 +94,19 @@ class Shopping extends \Ebay\Service\Base {
         // Set XML Header/Footer
         $request->setCallHeader('<' . $request->getCallName() . 'Request xmlns="urn:ebay:apis:eBLBaseComponents">');
         $request->setCallFooter('</' . $request->getCallName() . 'Request>');
+        
+        // Setup Call Credentials
+        if($requireCredntials){
+            $RequesterCredentialsField = new \Ebay\Common\Field();
+            $RequesterCredentialsField->setName('RequesterCredentials')->setValue(new \Ebay\Common\Field('eBayAuthToken',$this->userToken));
+
+            $request->addField($RequesterCredentialsField);
+        }
+        
+        // Content Length
+        $this->setHeader("Content-Length",  strlen($request->buildRequest()));
     
         // Call Parent Function
         return parent::makeRequest($request);
     }
-
 }

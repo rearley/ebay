@@ -42,16 +42,35 @@ class Finding extends \Ebay\Service\Base {
      * @param string $appId Ebay Application ID
      * @param boolean $debugMode Set object to debug mode.
      */
-    public function __construct($appId,$debugMode = false) {
-        parent::__construct($debugMode);
-
-        // Headers
-        $this->headers = array(
-            'X-EBAY-SOA-SERVICE-VERSION: 1.12.0', // Not Required
-            'X-EBAY-SOA-GLOBAL-ID: EBAY-US', // Required
-            'X-EBAY-SOA-SECURITY-APPNAME: '. $appId, // Required
-            'X-EBAY-SOA-MESSAGE-ENCODING: UTF-8' // Conditionally
-        );
+    public function __construct() {
+        parent::__construct();
+    }
+    
+    /**
+     * Sets up the headers for the Finding Service.
+     */
+    private function setupHeaders($request){
+        
+        // API Level
+        $this->setHeader('X-EBAY-SOA-SERVICE-VERSION',$this->callVersion);
+        
+        // Site ID
+        $this->setHeader('X-EBAY-SOA-GLOBAL-ID',$this->siteId);
+        
+        // AppId
+        $this->setHeader('X-EBAY-SOA-SECURITY-APPNAME',$this->appId);
+        
+        // Content Type
+        $this->setHeader("X-EBAY-SOA-MESSAGE-ENCODING", "UTF-8");
+        
+        // Request Encoding
+        $this->setHeader("X-EBAY-SOA-REQUEST-DATA-FORMAT", $request->getRequestType());
+        
+        // Response Encoding
+        $this->setHeader("X-EBAY-SOA-RESPONSE-DATA-FORMAT", $request->getResponseType());
+        
+        // Call Name
+        $this->setHeader("X-EBAY-SOA-OPERATION-NAME", $request->getCallName());
     }
 
     /**
@@ -61,9 +80,7 @@ class Finding extends \Ebay\Service\Base {
     public function makeRequest(\Ebay\Common\Request $request) {
 
         // Set Headers
-        $this->setHeader('X-EBAY-SOA-REQUEST-DATA-FORMAT',$request->getRequestType())
-                ->setHeader('X-EBAY-SOA-RESPONSE-DATA-FORMAT', $request->getResponseType())
-                ->setHeader('X-EBAY-SOA-OPERATION-NAME', $request->getCallName());
+        $this->setupHeaders($request);
 
         // Set Endpoint
         if($this->debugMode){

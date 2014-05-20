@@ -29,26 +29,12 @@ namespace Ebay;
 class Client {
 
     /**
-     * Ebay AppID
-     * @var string
-     */
-    private $applicationId;
-    
-    /**
-     * Client Library debug Mode
-     * @var boolean 
-     */
-    private $debugMode = false;
-
-    /**
      * Ebay Client Library
      * @param string $applicationId This is the application ID (AppID) for the service consumer. You obtain an AppID by joining the eBay Developers Program.
      * @param boolean $debugMode Sets application in debug for logging purposes and sandboxing.
      * @throws \InvalidArgumentException
      */
-    function __construct($applicationId, $debugMode = false) {
-        $this->applicationId = $applicationId;
-        $this->debugMode = $debugMode;
+    function __construct() {
     }
 
     /**
@@ -74,22 +60,4 @@ class Client {
             $logger->addDebug($message, $extra);
         }
     }
-
-    /**
-     * Get an Ebay service object.
-     * @param string $serviceName
-     * @return \Ebay\Service\ Service Object
-     * @throws \Exception
-     */
-    public function getService($serviceName) {
-
-        $service = "\\Ebay\Service\\{$serviceName}";
-
-        if (class_exists($service)) {
-            return new $service($this->applicationId,$this->debugMode);
-        } else {
-            throw new \Exception("The service {$service} does not exisit.");
-        }
-    }
-
 }
