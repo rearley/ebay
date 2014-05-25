@@ -81,7 +81,7 @@ class Curl {
         }
 
         if (empty($value)) {
-            throw new \InvalidArgumentException("The value cannot be empty", 1);
+            throw new \InvalidArgumentException("The cURL option value cannot be empty", 1);
         }
 
         if (curl_setopt($this->ch, $option, $value) === false) {
@@ -159,5 +159,4 @@ class Curl {
     public function getInformation() {
         return $this->information;
     }
-
 }
