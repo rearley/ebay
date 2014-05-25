@@ -29,10 +29,7 @@ namespace Ebay;
 class Client {
 
     /**
-     * Ebay Client Library
-     * @param string $applicationId This is the application ID (AppID) for the service consumer. You obtain an AppID by joining the eBay Developers Program.
-     * @param boolean $debugMode Sets application in debug for logging purposes and sandboxing.
-     * @throws \InvalidArgumentException
+     * New Client Object
      */
     function __construct() {
     }
