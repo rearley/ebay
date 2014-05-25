@@ -20,7 +20,7 @@
 namespace Ebay\Common;
 
 /**
- * Response Objetc
+ * Response Object
  * @package Ebay
  * @author Rick Earley <rick@earleyholdings.com>
  * @copyright (c) 2014
@@ -60,9 +60,10 @@ class Response {
     
     /**
      * Set cURL Information
-     * @param array $information
+     * @param array $information cURL information array.
      * @return \Ebay\Common\Response
      * @throws \InvalidArgumentException
+     * @see http://www.php.net/manual/en/function.curl-getinfo.php
      */
     public function setCurlInformation($information){
         
@@ -77,7 +78,7 @@ class Response {
     
     /**
      * Get the response body
-     * @param string $returnObject Reponse type XML,JSON,OBJECT
+     * @param string $returnObject Reponse type Default = XML (XML,JSON,OBJECT)
      * @return mixed (XML,JSON,OBJECT) Default is XML
      */
     public function getResponseBody($returnObject = 'XML'){
