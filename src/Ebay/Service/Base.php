@@ -205,5 +205,4 @@ class Base {
 
         return $this;
     }
-
 }
