@@ -39,8 +39,6 @@ class Finding extends \Ebay\Service\Base {
 
     /**
      * Finding Service
-     * @param string $appId Ebay Application ID
-     * @param boolean $debugMode Set object to debug mode.
      */
     public function __construct() {
         parent::__construct();
@@ -76,6 +74,7 @@ class Finding extends \Ebay\Service\Base {
     /**
      * Make a request to the service
      * @param \Ebay\Common\Request $request
+     * @return mixed
      */
     public function makeRequest(\Ebay\Common\Request $request) {
 

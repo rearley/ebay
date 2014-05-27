@@ -48,7 +48,7 @@ class Curl {
     
     /**
      * Stores the last cURL Response Body
-     * @var type 
+     * @var string
      */
     private $response;
 

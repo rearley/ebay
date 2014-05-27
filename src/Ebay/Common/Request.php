@@ -93,7 +93,7 @@ class Request {
     
     /**
      * Set call header XML
-     * @param type $callHeader
+     * @param string $callHeader
      * @throws \InvalidArgumentException
      */
     public function setCallHeader($callHeader) {
@@ -106,8 +106,8 @@ class Request {
     }
 
     /**
-     * Set call footer XML
-     * @param string $callFooter
+     * @param $callFooter
+     * @throws \InvalidArgumentException
      */
     public function setCallFooter($callFooter) {
         
@@ -170,8 +170,8 @@ class Request {
     }
 
     /**
-     * Add request field
-     * @param \Ebay\Common\Field $field
+     * @param $field
+     * @throws \InvalidArgumentException
      */
     public function addField($field) {
         
@@ -229,9 +229,9 @@ class Request {
     }
 
     /**
-     * Add fields to XML Request
-     * @param \Ebay\Common\Field $data
+     * @param $data
      * @return string
+     * @throws \InvalidArgumentException
      */
     private function buildInputField($data) {
         
