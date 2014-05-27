@@ -39,8 +39,6 @@ class Trading extends \Ebay\Service\Base {
 
     /**
      * Finding Service
-     * @param string $appId Ebay Application ID
-     * @param boolean $debugMode Set object to debug mode.
      */
     public function __construct() {
         parent::__construct();
@@ -76,10 +74,11 @@ class Trading extends \Ebay\Service\Base {
     }
 
     /**
-     * Make a request to the service
      * @param \Ebay\Common\Request $request
+     * @param bool $requireCredentials
+     * @return \Ebay\Common\Response
      */
-    public function makeRequest(\Ebay\Common\Request $request, $requireCredntials = true) {
+    public function makeRequest(\Ebay\Common\Request $request, $requireCredentials = true) {
         
         // Trading Call Headers
         $this->setupHeaders($request);
@@ -96,7 +95,7 @@ class Trading extends \Ebay\Service\Base {
         $request->setCallFooter('</' . $request->getCallName() . 'Request>');
         
         // Setup Call Credentials
-        if($requireCredntials){
+        if($requireCredentials){
             $RequesterCredentialsField = new \Ebay\Common\Field();
             $RequesterCredentialsField->setName('RequesterCredentials')->setValue(new \Ebay\Common\Field('eBayAuthToken',$this->userToken));
 

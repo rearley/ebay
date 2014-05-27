@@ -78,7 +78,6 @@ class Base {
 
     /**
      * Base Service Object
-     * @param boolean $debugMode Set debug mode
      */
     function __construct() {
         
