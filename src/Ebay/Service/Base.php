@@ -26,7 +26,7 @@ namespace Ebay\Service;
  * @copyright (c) 2014
  * @version 1.0
  */
-class Base {
+abstract class Base {
 
     /**
      * Ebay HEaders
