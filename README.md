@@ -1,3 +1,7 @@
+
+Master: [![Build Status](https://travis-ci.org/rearley/ebay.svg?branch=master)](https://travis-ci.org/rearley/ebay) 
+Development: [![Build Status](https://travis-ci.org/rearley/ebay.svg?branch=development)](https://travis-ci.org/rearley/ebay)
+
 eBay API
 ========
 PHP Client Library for the Ebay API.
