@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<phpunit bootstrap="bootstrap.php" colors="true">
+<phpunit bootstrap="tests/bootstrap.php" colors="true">
     <testsuites>
         <testsuite name="Common Files">
-            <directory>./src/Ebay/Common/</directory>
+            <directory>./tests/src/Ebay/Common/</directory>
         </testsuite>
         <testsuite name="Services">
-            <directory>./src/Ebay/Service/</directory>
+            <directory>./test/src/Ebay/Service/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
