@@ -7,5 +7,4 @@ ini_set('display_startup_errors', 1);
 
 // Setup Autoloader
 $loader = require __DIR__."/../vendor/autoload.php";
-$loader->add('Ebay\\', '/var/www/projects/ebay/src');
-echo __DIR__;
+$loader->add('Ebay\\', __DIR__.'/../src');
