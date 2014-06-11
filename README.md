@@ -1,6 +1,7 @@
-
-Master: [![Build Status](https://travis-ci.org/rearley/ebay.svg?branch=master)](https://travis-ci.org/rearley/ebay) 
-Development: [![Build Status](https://travis-ci.org/rearley/ebay.svg?branch=development)](https://travis-ci.org/rearley/ebay)
+[![Build Status](https://travis-ci.org/rearley/ebay.svg?branch=master)](https://travis-ci.org/rearley/ebay)
+[![Latest Stable Version](https://poser.pugx.org/rearley/ebay/v/stable.svg)](https://packagist.org/packages/rearley/ebay)
+[![Latest Unstable Version](https://poser.pugx.org/rearley/ebay/v/unstable.svg)](https://packagist.org/packages/rearley/ebay)
+[![License](https://poser.pugx.org/rearley/ebay/license.svg)](https://packagist.org/packages/rearley/ebay)
 
 eBay API
 ========
