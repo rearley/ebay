@@ -2,14 +2,14 @@
     "name": "rearley/ebay",
     "description":"Provides a method to communicate with eBay's Finding, Shopping and Trading API.",
     "keywords":["ebay","api","php"],
-    "homepage":"http://earleyholdings.com/?q=ebay",
+    "homepage":"http://earleyholdings.com/category/projects/ebay/",
     "type": "library",
     "license": "GPL-3.0+",
     "authors":[
         {
             "name":"Rick Earley",
             "email":"rick@earleyholdings.com",
-            "homepage":"http://earleyholdings.com/?q=ebay",
+            "homepage":"http://earleyholdings.com/category/projects/ebay/",
             "role":"Developer"
         }
     ],

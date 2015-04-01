@@ -1,3 +1,4 @@
 /src/Ebay/Logs/debug.log
 /src/index.php
 /vendor/
+composer.lock
