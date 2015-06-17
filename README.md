@@ -13,11 +13,11 @@ The client library currently supports the Finding, Shopping and Trading APIs.
 ```php
 
 // Call a Service
-$trading = new \Ebay\Service\Finding();
+$finding = new \Ebay\Service\Finding();
 
-$finding = new \Ebay\Service\Shopping();
+$shopping = new \Ebay\Service\Shopping();
 
-$shopping = new \Ebay\Service\Trading();
+$trading = new \Ebay\Service\Trading();
 
 // Configure Service
 $service
