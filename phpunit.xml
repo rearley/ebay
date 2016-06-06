@@ -2,10 +2,10 @@
 <phpunit bootstrap="tests/bootstrap.php" colors="true">
     <testsuites>
         <testsuite name="Common Files">
-            <directory>./tests/src/Ebay/Common/</directory>
+            <directory>./tests/src/Earley/Ebay/Common/</directory>
         </testsuite>
-        <testsuite name="Services">
-            <directory>./test/src/Ebay/Service/</directory>
+        <testsuite name="API">
+            <directory>./test/src/Earley/Ebay/API/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
