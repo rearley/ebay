@@ -74,7 +74,6 @@ class Base {
 	 */
 	protected $xmlns = '';
 
-
 	/**
 	 * Set the API call for the selected API
 	 * @param string $call
@@ -86,19 +85,24 @@ class Base {
 	}
 
 	/**
-	 * Adds elements that will compose the Request XML. Uses the Array2XML Library.
+	 * Adds an element to the Request
 	 * 
-	 * @param string|array $parts Can be a single value or an array of values
-	 * @param bool $element
-	 * @link http://www.lalit.org/lab/convert-php-array-to-xml-with-attributes/
+	 * @param string $name XML Element Name
+	 * @param string|array $value XML Element Value
 	 */
-	public function addElement($parts,$element = false)
+	public function addElement($name,$value)
 	{
-		if($element){
-			$this->raw_call[$element] = $parts;
-		} else {
-			$this->raw_call = array_merge($this->raw_call,$parts);
-		}
+		$request = array($name => $value);
+		$this->raw_call = array_merge($this->raw_call,$request);
+	}
+
+	/**
+	 * Adds elements to the Request
+	 * 
+	 * @param array $elements Associative array
+	 */
+	public function addElements($elements){
+		$this->raw_call = array_merge($this->raw_call,$elements);
 	}
 
 	/**
@@ -108,18 +112,11 @@ class Base {
 	private function buildXml()
 	{
 		// Call
-		if(!empty($this->call)){
-			$this->raw_call['@attributes'] =  
-				array(
-					'xmlns' => $this->xmlns
-				);
-		}
+		$this->addElement('@attributes',array('xmlns' => $this->xmlns));
 
 		// User Authentication
 		if(!is_null($this->user_token)){
-			$this->raw_call['RequesterCredentials'] = array(
-				'eBayAuthToken' => $this->user_token
-			);
+			$this->addElement('RequesterCredentials',array('eBayAuthToken' => $this->user_token));
 		}
 
 		// Build XML
@@ -151,6 +148,18 @@ class Base {
 		
 		// Return Result Set
 		return new Response($response);
+	}
+
+	/**
+	 * Output the Request XML
+	 * @return string XML String that would be sent to Ebay
+	 * @throws Exception
+	 */
+	public function getRequestXml(){
+		
+		$this->buildXml();
+		
+		return $this->xml;
 	}
 
 }
