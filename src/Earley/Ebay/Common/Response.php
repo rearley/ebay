@@ -18,6 +18,8 @@
 
 namespace Earley\Ebay\Common;
 
+use \Exception;
+
 /**
  * Class Response
  * @package Earley\Ebay\Common
@@ -48,18 +50,45 @@ class Response {
 	}
 
 	/**
-	 * Get Response Body in Array
-	 * @return array|boolean
+	 * Get Response in array format
+	 * 
+	 * @return bool|mixed
+	 * @throws Exception
 	 */
 	public function toArray(){
 
-		$body = $this->response->getBody()->getContents();
-
-		if(!empty($body)) {
-			return json_decode( json_encode( (array) simplexml_load_string( $body ) ), 1 );
-		} else {
-			return false;
+		try {
+			$body = $this->toXML();
+		} catch (Exception $e){
+			throw new Exception("The response was not a valid XML file. Report Error:".$e->getMessage());
 		}
+
+		return json_decode( json_encode( $body  ), 1 );
+	}
+
+	/**
+	 * Returns response in XML format
+	 * @return \SimpleXMLElement
+	 * @throws Exception
+	 */
+	public function toXML(){
+		
+		// Allow Internal Error Processing
+		libxml_use_internal_errors(true);
+
+		// Load Response to XML
+		$xml = simplexml_load_string($this->response->getBody()->getContents());
+
+		// Check for Errors
+		$xml_error = libxml_get_last_error();
+
+		if($xml_error !== false){
+			// Clear errors for next request
+			libxml_clear_errors();
+			throw new Exception($xml_error->message,$xml_error->code);
+		}
+		
+		return $xml;
 	}
 
 	/**
