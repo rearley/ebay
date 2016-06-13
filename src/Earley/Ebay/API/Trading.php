@@ -20,9 +20,13 @@ namespace Earley\Ebay\API;
 
 use Earley\Ebay\Common\Config;
 use \Exception;
+use \InvalidArgumentException;
 
-
-class Trading extends Base{
+/**
+ * Class Trading
+ * @package Earley\Ebay\API
+ */
+class Trading extends RequestBase{
 
 	/**
 	 * Trading constructor.
@@ -31,48 +35,33 @@ class Trading extends Base{
 	 * @param  string $user_token A user token needed for some calls
 	 *
 	 * @throws Exception
+	 * @throws InvalidArgumentException
 	 */
 	public function __construct( $call, $user_token = null ) {
 		
 		// Config
-		try {
-			$this->config = Config::getConfig();
-		} catch (Exception $e){
-			throw $e;
-		}
+		$config = Config::getConfig();
 
-		$this->endpoint = $this->config['trading']['endpoint'];
-		
-		// Call
-		$this->setCall($call);
-		
-		// User Token
-		$this->user_token = $user_token;
+		// EndPoint
+		$this->endpoint = $config['trading']['endpoint'];
 
-		// Headers
-		$this->headers = $this->get_headers();
-		
-		// XML Namespace
-		$this->xmlns = 'urn:ebay:apis:eBLBaseComponents';
-		
-	}
+		// Call Name
+		$this->setCallName($call,"urn:ebay:apis:eBLBaseComponents");
 
-	/**
-	 * Sets up the headers needed for the Trading API.
-	 * @return array
-	 */
-	private function get_headers()
-	{
-		$headers = array(
-			'X-EBAY-API-COMPATIBILITY-LEVEL' => $this->config['SchemeVersion'],
-			'X-EBAY-API-DEV-NAME' => $this->config['keys']['DevID'],
-			'X-EBAY-API-APP-NAME' => $this->config['keys']['AppID'],
-			'X-EBAY-API-CERT-NAME' => $this->config['keys']['CertID'],
-			'X-EBAY-API-CALL-NAME' => $this->callName,
-			'X-EBAY-API-SITEID' => $this->config['SiteID'],
+		// Setup Headers
+		$this->headers = array(
+			'X-EBAY-API-COMPATIBILITY-LEVEL' => $config['SchemeVersion'],
+			'X-EBAY-API-DEV-NAME' => $config['keys']['DevID'],
+			'X-EBAY-API-APP-NAME' => $config['keys']['AppID'],
+			'X-EBAY-API-CERT-NAME' => $config['keys']['CertID'],
+			'X-EBAY-API-CALL-NAME' => $this->call_name,
+			'X-EBAY-API-SITEID' => $config['SiteID'],
 			'Content-Type' => 'text/xml',
 		);
 
-		return $headers;
+		// User Token
+		if(!is_null($user_token)){
+			$this->addUserToken($user_token);
+		}
 	}
 }

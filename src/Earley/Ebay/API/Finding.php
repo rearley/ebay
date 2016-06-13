@@ -25,7 +25,7 @@ use \Exception;
  * Class Finding
  * @package Earley\Ebay\API
  */
-class Finding extends Base{
+class Finding extends RequestBase{
 
 	/**
 	 * Finding constructor.
@@ -38,45 +38,28 @@ class Finding extends Base{
 	public function __construct( $call, $user_token = null ) {
 
 		// Config
-		try {
-			$this->config = Config::getConfig();
-		} catch (Exception $e){
-			throw $e;
-		}
+		$config = Config::getConfig();
 
-		$this->endpoint = $this->config['finding']['endpoint'];
+		// End Point
+		$this->endpoint = $config['finding']['endpoint'];
 
 		// Call
-		$this->setCall($call);
-
-		// User Token
-		$this->user_token = $user_token;
+		$this->setCallName($call,'http://www.ebay.com/marketplace/search/v1/services');
 
 		// Headers
-		$this->headers = $this->get_headers();
-		
-		// XML Namespace
-		$this->xmlns = 'http://www.ebay.com/marketplace/search/v1/services';
-
-	}
-
-	/**
-	 * Sets up the headers needed for the Finding API.
-	 * @return array
-	 */
-	private function get_headers()
-	{
-		
-		$headers = array(
+		$this->headers = array(
 			'X-EBAY-SOA-SERVICE-NAME' => 'FindingService',
 			'X-EBAY-SOA-REQUEST-DATA-FORMAT' => 'XML',
 			'X-EBAY-SOA-RESPONSE-DATA-FORMAT' => 'XML',
-			'X-EBAY-SOA-SECURITY-APPNAME' => $this->config['keys']['AppID'],
-			'X-EBAY-SOA-OPERATION-NAME' => $this->callName,
-			'X-EBAY-SOA-SERVICE-VERSION' => $this->config['finding']['service_version'],
-			'X-EBAY-SOA-GLOBAL-ID' => $this->config['finding']['global_id']
+			'X-EBAY-SOA-SECURITY-APPNAME' => $config['keys']['AppID'],
+			'X-EBAY-SOA-OPERATION-NAME' => $this->call_name,
+			'X-EBAY-SOA-SERVICE-VERSION' => $config['finding']['service_version'],
+			'X-EBAY-SOA-GLOBAL-ID' => $config['finding']['global_id']
 		);
 
-		return $headers;
+		// User Token
+		if(!is_null($user_token)){
+			$this->addUserToken($user_token);
+		}
 	}
 }

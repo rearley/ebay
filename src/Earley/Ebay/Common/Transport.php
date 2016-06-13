@@ -19,6 +19,9 @@
 namespace Earley\Ebay\Common;
 
 use \GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use \InvalidArgumentException;
+use \Exception;
 
 /**
  * Class Transport
@@ -29,12 +32,12 @@ class Transport {
 	/**
 	 * @var array $headers
 	 */
-	private $headers;
+	private $headers = array();
 
 	/**
-	 * @var array $endpoint
+	 * @var string $endpoint
 	 */
-	private $endpoint = array();
+	private $endpoint = '';
 
 	/**
 	 * @var \GuzzleHttp\Client $client
@@ -44,21 +47,35 @@ class Transport {
 	/**
 	 * Transport constructor.
 	 *
-	 * @param $endpoint
-	 * @param $headers
+	 * @param string $endpoint
+	 * @param array $headers
+	 * 
+	 * @throws InvalidArgumentException
+	 * @throws GuzzleException
 	 */
 	public function __construct($endpoint,$headers)
 	{
-		$this->headers = $headers;
+		if(empty($endpoint)){
+			throw new InvalidArgumentException("A valid string endpoint is required.");
+		}
 		$this->endpoint = $endpoint;
+		
+		if(!is_array($headers) || empty($headers)){
+			throw new InvalidArgumentException("An array of header name and values is required.");	
+		}			
+		$this->headers = $headers;		
 
 		// Setup Guzzle
 		$this->client = new Client();
 	}
 
 	/**
+	 * Send Request
+	 * 
 	 * @param string $body The Request Body
-	 *
+	 * 
+	 * @throws Exception
+	 * 
 	 * @return mixed|\Psr\Http\Message\ResponseInterface
 	 */
 	public function send($body){
