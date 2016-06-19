@@ -1,4 +1,5 @@
-/src/Ebay/Logs/debug.log
-/src/index.php
+/composer.lock
 /vendor/
-composer.lock
+/src/Earley/Ebay/config/dev.php
+/src/Earley/Ebay/config/prod.php
+/tests/index.php

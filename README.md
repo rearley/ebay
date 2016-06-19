@@ -11,56 +11,92 @@ PHP Client Library for the Ebay API.
 The client library currently supports the Finding, Shopping and Trading APIs. 
 
 ```php
+// Call to the Trading's AddDispute call
+$service = new Earley\Ebay\API\Trading('AddDispute');
 
-// Call a Service
-$finding = new \Ebay\Service\Finding();
-
-$shopping = new \Ebay\Service\Shopping();
-
-$trading = new \Ebay\Service\Trading();
-
-// Configure Service
-$service
-        ->setAppId($appID)
-        ->setCallVersion('869')
-        ->setCertId($certID)
-        ->setDebugMode(true)
-        ->setDevId($devID)
-        ->setSiteId(0)
-        ->setUserToken($userToken);
-
+// Call to the Trading's AddDispute call with the user token for authentication
+$service = new Earley\Ebay\API\Trading('AddDispute','some long token string');
 ```
-
-### Request
-Once you have configured a service, the next step is to initiate a request. We will use the Trading API ```GeteBayDetails``` call as our example. 
-
-```php
-// Basic Request
-$request = new Ebay\Common\Request('GeteBayDetails');
-```
-
-### Fields
-Each request is made of of one or more fields. A field can have a name, value and attributes.
+## Add Element
+Add element to the call.
 
 ```php
 
-// Single Field
-$request->addField(
-        new \Ebay\Common\Field('DetailName','BuyerRequirementDetails')
-        );
+$service->addElement('CallElement','CallValue');
 
-// Multiple Fields
-$request->addFields(array(
-        new \Ebay\Common\Field('DetailName','BuyerRequirementDetails')
-        ));
 ```
 
-### Send Request
-The last step to sending a request is the service's makeRequest method.
+The call above will produce the following XML document that will be passed to the Trading API.
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<AddDisputeRequest xmlns="urn:ebay:apis:eBLBaseComponents">
+  <RequesterCredentials>
+    <eBayAuthToken>user_token</eBayAuthToken>
+  </RequesterCredentials>
+  <CallElement>CallValue</CallElement>
+</AddDisputeRequest>
+
+```
+
+## Add Element
+This method will allow you to add an array of Elements and Values
+
 ```php
-$response = $service->makeRequest($request);
+
+$service = new \Earley\Ebay\API\Trading('AddDispute');
+
+$call = array('CallElement' => 'CallValue');
+$service->addElements($call);
+
 ```
 
+This will produce the same result as above.
+
+## Sending API Call
+
+```php
+
+// Send Request
+$response = $service->send();
+
+```
+
+## Working with the Response
+The response object has a few methods to get the Ebay Response in a few different formats.
+
+```php
+
+// Array
+$object = $response->toArray();
+
+// XML
+$object = $response->toXml();
+
+// String
+$object = $response->toString();
+
+```
+
+You have a few other methods in order to get other basic information.
+
+```php
+
+// Headers
+$response->getHeaders();
+
+// HTTP Code
+$response->getStatusCode();
+
+// HTTP Response Phrase
+$response->getReasonPhrase();
+
+```
+
+
+
+Each service API has one required argument and a optional argument. The first argument is the API's call and the second
+is the user token that is required for certain calls to the trading API.
 
 ### TODO
 * More detailed documentation

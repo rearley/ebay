@@ -17,7 +17,8 @@
       "email":"rick@earleyholdings.com"  
     },
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.5",
+        "guzzlehttp/guzzle": "~6.0"
     },
     "autoload": {
         "psr-0": {"Ebay": "src/"}
