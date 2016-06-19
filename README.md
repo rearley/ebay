@@ -21,10 +21,13 @@ $service = new Earley\Ebay\API\Trading('AddDispute','some long token string');
 Add element to the call.
 
 ```php
+
 $service->addElement('CallElement','CallValue');
+
 ```
 
 The call above will produce the following XML document that will be passed to the Trading API.
+
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <AddDisputeRequest xmlns="urn:ebay:apis:eBLBaseComponents">
@@ -40,13 +43,57 @@ The call above will produce the following XML document that will be passed to th
 This method will allow you to add an array of Elements and Values
 
 ```php
+
 $service = new \Earley\Ebay\API\Trading('AddDispute');
 
 $call = array('CallElement' => 'CallValue');
 $service->addElements($call);
+
 ```
 
 This will produce the same result as above.
+
+## Sending API Call
+
+```php
+
+// Send Request
+$response = $service->send();
+
+```
+
+## Working with the Response
+The response object has a few methods to get the Ebay Response in a few different formats.
+
+```php
+
+// Array
+$object = $response->toArray();
+
+// XML
+$object = $response->toXml();
+
+// String
+$object = $response->toString();
+
+```
+
+You have a few other methods in order to get other basic information.
+
+```php
+
+// Headers
+$response->getHeaders();
+
+// HTTP Code
+$response->getStatusCode();
+
+// HTTP Response Phrase
+$response->getReasonPhrase();
+
+```
+
+
 
 Each service API has one required argument and a optional argument. The first argument is the API's call and the second
 is the user token that is required for certain calls to the trading API.
