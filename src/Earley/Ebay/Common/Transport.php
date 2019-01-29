@@ -21,72 +21,66 @@ namespace Earley\Ebay\Common;
 use \GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use \InvalidArgumentException;
-use \Exception;
 
 /**
  * Class Transport
  * @package Earley\Ebay\Common
  */
-class Transport {
+class Transport
+{
 
-	/**
-	 * @var array $headers
-	 */
-	private $headers = array();
+    /**
+     * @var array $headers
+     */
+    private $headers = array();
 
-	/**
-	 * @var string $endpoint
-	 */
-	private $endpoint = '';
+    /**
+     * @var string $endpoint
+     */
+    private $endpoint = '';
 
-	/**
-	 * @var \GuzzleHttp\Client $client
-	 */
-	private $client;
+    /**
+     * @var \GuzzleHttp\Client $client
+     */
+    private $client;
 
-	/**
-	 * Transport constructor.
-	 *
-	 * @param string $endpoint
-	 * @param array $headers
-	 * 
-	 * @throws InvalidArgumentException
-	 * @throws GuzzleException
-	 */
-	public function __construct($endpoint,$headers)
-	{
-		if(empty($endpoint)){
-			throw new InvalidArgumentException("A valid string endpoint is required.");
-		}
-		$this->endpoint = $endpoint;
-		
-		if(!is_array($headers) || empty($headers)){
-			throw new InvalidArgumentException("An array of header name and values is required.");	
-		}			
-		$this->headers = $headers;		
+    /**
+     * Transport constructor.
+     * @param $endpoint
+     * @param $headers
+     */
+    public function __construct($endpoint, $headers)
+    {
+        if (empty($endpoint)) {
+            throw new InvalidArgumentException("A valid string endpoint is required.");
+        }
+        $this->endpoint = $endpoint;
 
-		// Setup Guzzle
-		$this->client = new Client();
-	}
+        if (!is_array($headers) || empty($headers)) {
+            throw new InvalidArgumentException("An array of header name and values is required.");
+        }
+        $this->headers = $headers;
 
-	/**
-	 * Send Request
-	 * 
-	 * @param string $body The Request Body
-	 * 
-	 * @throws Exception
-	 * 
-	 * @return mixed|\Psr\Http\Message\ResponseInterface
-	 */
-	public function send($body){
+        // Setup Guzzle
+        $this->client = new Client();
+    }
 
-		$response = $this->client->request( 'POST', $this->endpoint, [
-			'body'    => $body,
-			'headers' => $this->headers,
-			'verify'  => false,
-			'http_errors' => false
-		] );
+    /**
+     * Send Request
+     * @param $body
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws GuzzleException
+     */
+    public function send($body)
+    {
 
-		return $response;
-	}
+        $response = $this->client->request('POST', $this->endpoint, [
+            'body' => $body,
+            'headers' => $this->headers,
+            'verify' => false,
+            'http_errors' => false
+        ]);
+
+        return $response;
+    }
 }

@@ -25,41 +25,43 @@ use \Exception;
  * Class Finding
  * @package Earley\Ebay\API
  */
-class Finding extends RequestBase{
+class Finding extends RequestBase
+{
 
-	/**
-	 * Finding constructor.
-	 *
-	 * @param string $call Finding Call
-	 * @param string|null $user_token
-	 * 
-	 * @throws Exception
-	 */
-	public function __construct( $call, $user_token = null ) {
+    /**
+     * Finding constructor.
+     *
+     * @param string $call Finding Call
+     * @param string|null $user_token
+     *
+     * @throws Exception
+     */
+    public function __construct($call, $user_token = null)
+    {
 
-		// Config
-		$config = Config::getConfig();
+        // Config
+        $config = Config::getConfig();
 
-		// End Point
-		$this->endpoint = $config['finding']['endpoint'];
+        // End Point
+        $this->endpoint = $config['finding']['endpoint'];
 
-		// Call
-		$this->setCallName($call,'http://www.ebay.com/marketplace/search/v1/services');
+        // Call
+        $this->setCallName($call, 'http://www.ebay.com/marketplace/search/v1/services');
 
-		// Headers
-		$this->headers = array(
-			'X-EBAY-SOA-SERVICE-NAME' => 'FindingService',
-			'X-EBAY-SOA-REQUEST-DATA-FORMAT' => 'XML',
-			'X-EBAY-SOA-RESPONSE-DATA-FORMAT' => 'XML',
-			'X-EBAY-SOA-SECURITY-APPNAME' => $config['keys']['AppID'],
-			'X-EBAY-SOA-OPERATION-NAME' => $this->call_name,
-			'X-EBAY-SOA-SERVICE-VERSION' => $config['finding']['service_version'],
-			'X-EBAY-SOA-GLOBAL-ID' => $config['finding']['global_id']
-		);
+        // Headers
+        $this->headers = array(
+            'X-EBAY-SOA-SERVICE-NAME' => 'FindingService',
+            'X-EBAY-SOA-REQUEST-DATA-FORMAT' => 'XML',
+            'X-EBAY-SOA-RESPONSE-DATA-FORMAT' => 'XML',
+            'X-EBAY-SOA-SECURITY-APPNAME' => $config['keys']['AppID'],
+            'X-EBAY-SOA-OPERATION-NAME' => $this->call_name,
+            'X-EBAY-SOA-SERVICE-VERSION' => $config['finding']['service_version'],
+            'X-EBAY-SOA-GLOBAL-ID' => $config['finding']['global_id']
+        );
 
-		// User Token
-		if(!is_null($user_token)){
-			$this->addUserToken($user_token);
-		}
-	}
+        // User Token
+        if (!is_null($user_token)) {
+            $this->addUserToken($user_token);
+        }
+    }
 }

@@ -25,47 +25,49 @@ use \Exception;
  * Class Shopping
  * @package Earley\Ebay\API
  */
-class Shopping extends RequestBase{
+class Shopping extends RequestBase
+{
 
-	/**
-	 * Shopping constructor.
-	 *
-	 * @param string $call The Shopping Call that you will be performing
-	 * @param  string $user_token A user token needed for some calls
-	 * 
-	 * @throws Exception
-	 */
-	public function __construct( $call, $user_token = null ) {
+    /**
+     * Shopping constructor.
+     *
+     * @param string $call The Shopping Call that you will be performing
+     * @param  string $user_token A user token needed for some calls
+     *
+     * @throws Exception
+     */
+    public function __construct($call, $user_token = null)
+    {
 
-		// Config
-		$config = Config::getConfig();
+        // Config
+        $config = Config::getConfig();
 
-		// End Point
-		$this->endpoint = $config['shopping']['endpoint'];
+        // End Point
+        $this->endpoint = $config['shopping']['endpoint'];
 
-		// Call
-		$this->setCallName($call,"urn:ebay:apis:eBLBaseComponents");
+        // Call
+        $this->setCallName($call, "urn:ebay:apis:eBLBaseComponents");
 
-		// Headers
-		$this->headers = array(
-			'X-EBAY-API-APP-ID' => $config['keys']['AppID'],
-			'X-EBAY-API-CALL-NAME' => $this->call_name,
-			'X-EBAY-API-REQUEST-ENCODING' => 'XML',
-			'X-EBAY-API-RESPONSE-ENCODING' => 'XML',
-			'X-EBAY-API-SITE-ID' => $config['SiteID'],
-			'X-EBAY-API-VERSION' => $config['SchemeVersion'],
-		);
+        // Headers
+        $this->headers = array(
+            'X-EBAY-API-APP-ID' => $config['keys']['AppID'],
+            'X-EBAY-API-CALL-NAME' => $this->call_name,
+            'X-EBAY-API-REQUEST-ENCODING' => 'XML',
+            'X-EBAY-API-RESPONSE-ENCODING' => 'XML',
+            'X-EBAY-API-SITE-ID' => $config['SiteID'],
+            'X-EBAY-API-VERSION' => $config['SchemeVersion'],
+        );
 
-		// Affiliate Tracking Headers
-		if($config['shopping']['affiliate_tracking'] == 'true'){
-			$this->headers['X-EBAY-API-TRACKING-ID'] = $config['shopping']['affiliate']['tracking_id'];
-			$this->headers['X-EBAY-API-TRACKING-PARTNER-CODE'] = $config['shopping']['affiliate']['partner_code'];
-			$this->headers['X-EBAY-API-AFFILIATE-USER-ID'] = $config['shopping']['affiliate']['user_id'];
-		}
+        // Affiliate Tracking Headers
+        if ($config['shopping']['affiliate_tracking'] == 'true') {
+            $this->headers['X-EBAY-API-TRACKING-ID'] = $config['shopping']['affiliate']['tracking_id'];
+            $this->headers['X-EBAY-API-TRACKING-PARTNER-CODE'] = $config['shopping']['affiliate']['partner_code'];
+            $this->headers['X-EBAY-API-AFFILIATE-USER-ID'] = $config['shopping']['affiliate']['user_id'];
+        }
 
-		// User Token
-		if(!is_null($user_token)){
-			$this->addUserToken($user_token);
-		}
-	}
+        // User Token
+        if (!is_null($user_token)) {
+            $this->addUserToken($user_token);
+        }
+    }
 }

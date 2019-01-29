@@ -3,3 +3,4 @@
 /src/Earley/Ebay/config/dev.php
 /src/Earley/Ebay/config/prod.php
 /tests/index.php
+/.idea

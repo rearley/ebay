@@ -26,42 +26,44 @@ use \InvalidArgumentException;
  * Class Trading
  * @package Earley\Ebay\API
  */
-class Trading extends RequestBase{
+class Trading extends RequestBase
+{
 
-	/**
-	 * Trading constructor.
-	 *
-	 * @param string $call The Trading Call that you will be performing
-	 * @param  string $user_token A user token needed for some calls
-	 *
-	 * @throws Exception
-	 * @throws InvalidArgumentException
-	 */
-	public function __construct( $call, $user_token = null ) {
-		
-		// Config
-		$config = Config::getConfig();
+    /**
+     * Trading constructor.
+     *
+     * @param string $call The Trading Call that you will be performing
+     * @param  string $user_token A user token needed for some calls
+     *
+     * @throws Exception
+     * @throws InvalidArgumentException
+     */
+    public function __construct($call, $user_token = null)
+    {
 
-		// EndPoint
-		$this->endpoint = $config['trading']['endpoint'];
+        // Config
+        $config = Config::getConfig();
 
-		// Call Name
-		$this->setCallName($call,"urn:ebay:apis:eBLBaseComponents");
+        // EndPoint
+        $this->endpoint = $config['trading']['endpoint'];
 
-		// Setup Headers
-		$this->headers = array(
-			'X-EBAY-API-COMPATIBILITY-LEVEL' => $config['SchemeVersion'],
-			'X-EBAY-API-DEV-NAME' => $config['keys']['DevID'],
-			'X-EBAY-API-APP-NAME' => $config['keys']['AppID'],
-			'X-EBAY-API-CERT-NAME' => $config['keys']['CertID'],
-			'X-EBAY-API-CALL-NAME' => $this->call_name,
-			'X-EBAY-API-SITEID' => $config['SiteID'],
-			'Content-Type' => 'text/xml',
-		);
+        // Call Name
+        $this->setCallName($call, "urn:ebay:apis:eBLBaseComponents");
 
-		// User Token
-		if(!is_null($user_token)){
-			$this->addUserToken($user_token);
-		}
-	}
+        // Setup Headers
+        $this->headers = array(
+            'X-EBAY-API-COMPATIBILITY-LEVEL' => $config['SchemeVersion'],
+            'X-EBAY-API-DEV-NAME' => $config['keys']['DevID'],
+            'X-EBAY-API-APP-NAME' => $config['keys']['AppID'],
+            'X-EBAY-API-CERT-NAME' => $config['keys']['CertID'],
+            'X-EBAY-API-CALL-NAME' => $this->call_name,
+            'X-EBAY-API-SITEID' => $config['SiteID'],
+            'Content-Type' => 'text/xml',
+        );
+
+        // User Token
+        if (!is_null($user_token)) {
+            $this->addUserToken($user_token);
+        }
+    }
 }

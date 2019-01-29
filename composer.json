@@ -18,7 +18,10 @@
     },
     "require": {
         "php": ">=5.5",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "ext-json":"*",
+        "ext-libxml": "*",
+        "ext-simplexml": "*"
     },
     "autoload": {
         "psr-0": {"Ebay": "src/"}
