@@ -5,7 +5,7 @@
 [![License](https://poser.pugx.org/rearley/ebay/license.svg)](https://packagist.org/packages/rearley/ebay)
 [![composer.lock](https://poser.pugx.org/rearley/ebay/composerlock)](https://packagist.org/packages/rearley/ebay)
 
-#THIS PACKAGE IS NO LONGER MAINTAINED#
+# THIS PACKAGE IS NO LONGER MAINTAINED #
 
 eBay API
 ========
